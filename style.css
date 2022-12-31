@@ -1,0 +1,15 @@
+/*Set box-sizing to border-box*/
+/*html {
+  box-sizing: border-box;
+}*/
+
+/*Set box-sizing to border-box*/
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  overflow-x: hidden;
+}
