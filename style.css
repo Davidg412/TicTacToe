@@ -13,3 +13,23 @@
 body {
   overflow-x: hidden;
 }
+
+/*Overall Page Layout*/
+.page-container {
+  display: grid;
+  justify-content: center;
+}
+
+/*Tic-Tac-Toe game board*/
+#game-container {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(100px, 1fr));
+  grid-template-rows: repeat(3, minmax(100px, 1fr));
+  border-style: solid;
+  width: 40rem;
+  height: 40rem;
+}
+
+.game-square {
+  border-style: solid;
+}
