@@ -20,16 +20,38 @@ body {
   justify-content: center;
 }
 
+.game-header {
+  justify-self: center;
+}
+
 /*Tic-Tac-Toe game board*/
 #game-container {
   display: grid;
-  grid-template-columns: repeat(3, minmax(100px, 1fr));
-  grid-template-rows: repeat(3, minmax(100px, 1fr));
+  grid-template-columns: repeat(3, minmax(50px, 1fr));
+  grid-template-rows: repeat(3, minmax(50px, 1fr));
   border-style: solid;
-  width: 40rem;
-  height: 40rem;
+  width: 35rem;
+  height: 35rem;
 }
 
 .game-square {
   border-style: solid;
+}
+
+/*Player selection under the game board*/
+.player-choices {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.selection-message {
+  grid-column: span 2;
+  justify-self: center;
+}
+
+.x-button,
+.y-button {
+  justify-self: center;
+  font-size: 2rem;
+  width: 7rem;
 }
