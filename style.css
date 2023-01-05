@@ -38,6 +38,16 @@ body {
   border-style: solid;
 }
 
+.game-square:hover {
+  background-color: gainsboro;
+}
+
+.game-square:active {
+  background-color: #gainsboro;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
 /*Player selection under the game board*/
 .player-choices {
   display: grid;
