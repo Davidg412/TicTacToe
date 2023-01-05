@@ -20,15 +20,31 @@ const playerSelection = (() => {
   selectionMessage.textContent = "Choose your weapon:";
   playerChoices.appendChild(selectionMessage);
 
-  //Buttons for player selection
+  //Button Creation
   //X Button
   const xButton = document.createElement("button");
+  //setAttribute sets the value of the button to in our JS
+  xButton.setAttribute("value", "x");
   xButton.classList.add("x-button");
   xButton.textContent = "X";
   playerChoices.appendChild(xButton);
   //Y Button
   const yButton = document.createElement("button");
+  yButton.setAttribute("value", "y");
   yButton.classList.add("y-button");
   yButton.textContent = "Y";
   playerChoices.appendChild(yButton);
+
+  //Loop to add onclick events to both X and Y buttons
+  let btns = document.querySelectorAll("button");
+
+  btns.forEach(function (buttonSelect) {
+    buttonSelect.addEventListener("click", function () {
+      if (buttonSelect == xButton) {
+        console.log("x");
+      } else if (buttonSelect == yButton) {
+        console.log("y");
+      }
+    });
+  });
 })();
