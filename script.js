@@ -1,7 +1,9 @@
 //Game Board
 const gameBoard = (() => {
-  const myBoard = [];
+  //Array for the board
+  let myBoard = [];
   let emptySquare = "";
+  let allSquares = [];
   let index = 0;
   const gameContainer = document.querySelector("#game-container");
   //Loop to create 3x3 gameBoard
@@ -10,10 +12,14 @@ const gameBoard = (() => {
     gameSquare.classList.add("game-square");
     gameSquare.dataset.linkedArray = index;
     gameContainer.appendChild(gameSquare);
+    //Creates an empty space in the array
     myBoard.push(emptySquare);
+    //Places the div (square) element into the array
+    allSquares.push(gameSquare);
     index++;
   }
-  return { myBoard };
+
+  return { myBoard, allSquares };
 })();
 
 //X or O letter player selection
@@ -61,14 +67,17 @@ const gameFlow = (playerLetter) => {
     let cpuLetter = "x";
   }
   let flowBoard = gameBoard.myBoard;
+
+  //Winning sets for the game
+  const winCombos = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
   console.log(flowBoard);
 };
-
-/*//Flow of the TicTacToe Game
-const gameFlow = (playerLetter) => {
-  if (playerLetter == "x") {
-    console.log("this is x");
-  } else if (playerLetter == "o") {
-    console.log("this is o");
-  }
-};*/
