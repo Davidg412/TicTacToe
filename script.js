@@ -29,22 +29,31 @@ const playerSelection = (() => {
   xButton.textContent = "X";
   playerChoices.appendChild(xButton);
   //Y Button
-  const yButton = document.createElement("button");
-  yButton.setAttribute("value", "y");
-  yButton.classList.add("y-button");
-  yButton.textContent = "Y";
-  playerChoices.appendChild(yButton);
+  const oButton = document.createElement("button");
+  oButton.setAttribute("value", "o");
+  oButton.classList.add("o-button");
+  oButton.textContent = "O";
+  playerChoices.appendChild(oButton);
 
   //Loop to add onclick events to both X and Y buttons
   let btns = document.querySelectorAll("button");
-
-  btns.forEach(function (buttonSelect) {
-    buttonSelect.addEventListener("click", function () {
-      if (buttonSelect == xButton) {
+  btns.forEach(function (i) {
+    i.addEventListener("click", () => {
+      if (i == xButton) {
+        testFactory("x");
         console.log("x");
-      } else if (buttonSelect == yButton) {
-        console.log("y");
+      } else if (i == oButton) {
+        testFactory("o");
+        console.log("o");
       }
     });
   });
 })();
+
+const testFactory = (yolo) => {
+  if (yolo == "x") {
+    console.log("this is x");
+  } else if (yolo == "o") {
+    console.log("this is o");
+  }
+};
