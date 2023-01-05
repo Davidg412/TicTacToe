@@ -1,14 +1,19 @@
 //Game Board
 const gameBoard = (() => {
   const myBoard = [];
+  let emptySquare = "";
+  let index = 0;
   const gameContainer = document.querySelector("#game-container");
   //Loop to create 3x3 gameBoard
   for (let i = 0; i < 9; i++) {
     const gameSquare = document.createElement("div");
     gameSquare.classList.add("game-square");
+    gameSquare.dataset.linkedArray = index;
     gameContainer.appendChild(gameSquare);
-    myBoard.push(gameSquare);
+    myBoard.push(emptySquare);
+    index++;
   }
+  return { myBoard };
 })();
 
 //X or O letter player selection
@@ -40,20 +45,30 @@ const playerSelection = (() => {
   btns.forEach(function (i) {
     i.addEventListener("click", () => {
       if (i == xButton) {
-        testFactory("x");
-        console.log("x");
+        gameFlow("x");
       } else if (i == oButton) {
-        testFactory("o");
-        console.log("o");
+        gameFlow("o");
       }
     });
   });
 })();
 
-const testFactory = (yolo) => {
-  if (yolo == "x") {
+//Flow of the TicTacToe Game
+const gameFlow = (playerLetter) => {
+  if (playerLetter == "x") {
+    let cpuLetter = "o";
+  } else if (playerLetter == "o") {
+    let cpuLetter = "x";
+  }
+  let flowBoard = gameBoard.myBoard;
+  console.log(flowBoard);
+};
+
+/*//Flow of the TicTacToe Game
+const gameFlow = (playerLetter) => {
+  if (playerLetter == "x") {
     console.log("this is x");
-  } else if (yolo == "o") {
+  } else if (playerLetter == "o") {
     console.log("this is o");
   }
-};
+};*/
