@@ -1,28 +1,25 @@
-//Game Board
+/*Game Board*/
 const gameBoard = (() => {
   //Array for the board
   let myBoard = [];
   let emptySquare = "";
-  let allSquares = [];
   let index = 0;
   const gameContainer = document.querySelector("#game-container");
   //Loop to create 3x3 gameBoard
-  for (let i = 0; i < 9; i++) {
+  for (let square = 0; square < 9; square++) {
     const gameSquare = document.createElement("div");
     gameSquare.classList.add("game-square");
     gameSquare.dataset.linkedArray = index;
     gameContainer.appendChild(gameSquare);
     //Creates an empty space in the array
     myBoard.push(emptySquare);
-    //Places the div (square) element into the array
-    allSquares.push(gameSquare);
     index++;
   }
 
-  return { myBoard, allSquares };
+  return { myBoard };
 })();
 
-//X or O letter player selection
+/*X or O letter player selection*/
 const playerSelection = (() => {
   //Header for buttons
   const playerChoices = document.querySelector(".player-choices");
@@ -35,39 +32,37 @@ const playerSelection = (() => {
   //X Button
   const xButton = document.createElement("button");
   //setAttribute sets the value of the button to in our JS
-  xButton.setAttribute("value", "x");
+  xButton.setAttribute("value", "X");
   xButton.classList.add("x-button");
   xButton.textContent = "X";
   playerChoices.appendChild(xButton);
   //Y Button
   const oButton = document.createElement("button");
-  oButton.setAttribute("value", "o");
+  oButton.setAttribute("value", "O");
   oButton.classList.add("o-button");
   oButton.textContent = "O";
   playerChoices.appendChild(oButton);
 
   //Loop to add onclick events to both X and Y buttons
   let btns = document.querySelectorAll("button");
-  btns.forEach(function (i) {
-    i.addEventListener("click", () => {
-      if (i == xButton) {
-        gameFlow("x");
-      } else if (i == oButton) {
-        gameFlow("o");
+  btns.forEach(function (square) {
+    square.addEventListener("click", () => {
+      if (square == xButton) {
+        gameFlow("X");
+      } else if (square == oButton) {
+        gameFlow("O");
       }
     });
   });
 })();
 
-//Flow of the TicTacToe Game
+/*Flow of the TicTacToe Game after a letter is selected*/
 const gameFlow = (playerLetter) => {
-  if (playerLetter == "x") {
-    let cpuLetter = "o";
-  } else if (playerLetter == "o") {
-    let cpuLetter = "x";
+  if (playerLetter == "X") {
+    let cpuLetter = "O";
+  } else if (playerLetter == "O") {
+    let cpuLetter = "X";
   }
-  let flowBoard = gameBoard.myBoard;
-
   //Winning sets for the game
   const winCombos = [
     [0, 1, 2],
@@ -79,5 +74,18 @@ const gameFlow = (playerLetter) => {
     [0, 4, 8],
     [2, 4, 6],
   ];
-  console.log(flowBoard);
+  let flowBoard = gameBoard.myBoard;
+
+  //Adds click event listeners to each game square
+  let allSquares = document.querySelectorAll(".game-square");
+  allSquares.forEach(addLetter);
+
+  //Splices letter into game array and appends a letter visually on the board
+  function addLetter(square, index) {
+    square.addEventListener("click", () => {
+      square.textContent = playerLetter;
+      flowBoard.splice(index, 1, playerLetter);
+      console.log(flowBoard);
+    });
+  }
 };
