@@ -25,7 +25,7 @@ const playerSelection = (() => {
   const playerChoices = document.querySelector(".player-choices");
   const selectionMessage = document.createElement("h2");
   selectionMessage.classList.add("selection-message");
-  selectionMessage.textContent = "Choose your weapon:";
+  selectionMessage.textContent = "Choose your letter:";
   playerChoices.appendChild(selectionMessage);
 
   //Button Creation

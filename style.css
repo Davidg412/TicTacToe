@@ -22,6 +22,8 @@ body {
 
 .game-header {
   justify-self: center;
+  font-weight: bold;
+  font-size: 3rem;
 }
 
 /*Tic-Tac-Toe game board*/
@@ -64,4 +66,10 @@ body {
   justify-self: center;
   font-size: 2rem;
   width: 7rem;
+}
+
+.game-on {
+  justify-self: center;
+  font-weight: bold;
+  font-size: 3rem;
 }
