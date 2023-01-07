@@ -47,6 +47,7 @@ const playerSelection = (() => {
   let btns = document.querySelectorAll("button");
   btns.forEach(function (square) {
     square.addEventListener("click", () => {
+      gameOnMessage();
       if (square == xButton) {
         gameFlow("X");
       } else if (square == oButton) {
@@ -55,6 +56,18 @@ const playerSelection = (() => {
     });
   });
 })();
+
+//Hide player selection and display game on message
+const gameOnMessage = () => {
+  //Removes selection buttons
+  document.querySelector(".player-choices").style.display = "none";
+  //Replace with game message
+  const gameOn = document.createElement("h2");
+  gameOn.classList.add("game-on");
+  gameOn.textContent = "Game On!";
+  const pageContainer = document.querySelector(".page-container");
+  pageContainer.appendChild(gameOn);
+};
 
 /*Flow of the TicTacToe Game after a letter is selected*/
 const gameFlow = (playerLetter) => {
