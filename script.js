@@ -1,4 +1,4 @@
-/*Game Board*/
+////////*Game Board*//////////
 const gameBoard = (() => {
   //Array for the board
   let myBoard = [];
@@ -19,7 +19,7 @@ const gameBoard = (() => {
   return { myBoard };
 })();
 
-/*X or O letter player selection*/
+////////////*X or O letter player selection*/////////
 const playerSelection = (() => {
   //Header for buttons
   const playerChoices = document.querySelector(".player-choices");
@@ -69,36 +69,58 @@ const gameOnMessage = () => {
   pageContainer.appendChild(gameOn);
 };
 
-/*Flow of the TicTacToe Game after a letter is selected*/
+/////////*Flow of the TicTacToe Game after a letter is selected*//////////
 const gameFlow = (playerLetter) => {
   if (playerLetter == "X") {
     let cpuLetter = "O";
   } else if (playerLetter == "O") {
     let cpuLetter = "X";
   }
-  //Winning sets for the game
-  const winCombos = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6],
-  ];
   let flowBoard = gameBoard.myBoard;
 
   //Adds click event listeners to each game square
   let allSquares = document.querySelectorAll(".game-square");
   allSquares.forEach(addLetter);
-
   //Splices letter into game array and appends a letter visually on the board
   function addLetter(square, index) {
     square.addEventListener("click", () => {
       square.textContent = playerLetter;
       flowBoard.splice(index, 1, playerLetter);
+      let humanCombos = comboCheck(flowBoard, playerLetter);
       console.log(flowBoard);
     });
+  }
+};
+
+//////////////*Find combos of players letters in the game board*//////////////
+const comboCheck = (playersBoard) => {
+  // Winning combos for the game
+  if (
+    (playersBoard[0] != "" &&
+      playersBoard[0] == playersBoard[1] &&
+      playersBoard[1] == playersBoard[2]) ||
+    (playersBoard[3] != "" &&
+      playersBoard[3] == playersBoard[4] &&
+      playersBoard[4] == playersBoard[5]) ||
+    (playersBoard[6] != "" &&
+      playersBoard[6] == playersBoard[7] &&
+      playersBoard[7] == playersBoard[8]) ||
+    (playersBoard[0] != "" &&
+      playersBoard[0] == playersBoard[3] &&
+      playersBoard[3] == playersBoard[6]) ||
+    (playersBoard[1] != "" &&
+      playersBoard[1] == playersBoard[4] &&
+      playersBoard[4] == playersBoard[7]) ||
+    (playersBoard[2] != "" &&
+      playersBoard[2] == playersBoard[5] &&
+      playersBoard[5] == playersBoard[8]) ||
+    (playersBoard[0] != "" &&
+      playersBoard[0] == playersBoard[4] &&
+      playersBoard[4] == playersBoard[8]) ||
+    (playersBoard[2] != "" &&
+      playersBoard[2] == playersBoard[4] &&
+      playersBoard[4] == playersBoard[6])
+  ) {
+    console.log("winner");
   }
 };
