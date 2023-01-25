@@ -16,7 +16,7 @@ const gameBoard = (() => {
     index++;
   }
 
-  return { myBoard };
+  return { myBoard, gameContainer };
 })();
 
 ////////////*X or O letter player selection*/////////
@@ -67,6 +67,7 @@ const gameOnMessage = () => {
   gameOn.textContent = "Game On!";
   const pageContainer = document.querySelector(".page-container");
   pageContainer.appendChild(gameOn);
+  return { gameOn };
 };
 
 /////////*Flow of the TicTacToe Game after a letter is selected*//////////
@@ -86,6 +87,8 @@ const gameFlow = (playerLetter) => {
     square.addEventListener("click", () => {
       square.textContent = playerLetter;
       flowBoard.splice(index, 1, playerLetter);
+      //Disables the square after it has been clicked
+      square.style.pointerEvents = "none";
       let humanCombos = comboCheck(flowBoard, playerLetter);
       console.log(flowBoard);
     });
@@ -93,7 +96,7 @@ const gameFlow = (playerLetter) => {
 };
 
 //////////////*Find combos of players letters in the game board*//////////////
-const comboCheck = (playersBoard) => {
+const comboCheck = (playersBoard, gameLetter) => {
   // Winning combos for the game
   if (
     (playersBoard[0] != "" &&
@@ -121,6 +124,9 @@ const comboCheck = (playersBoard) => {
       playersBoard[2] == playersBoard[4] &&
       playersBoard[4] == playersBoard[6])
   ) {
-    console.log("winner");
+    //Disables all of game board squares
+    gameBoard.gameContainer.style.pointerEvents = "none";
+    gameOnMessage.gameOn.style.display = "none";
   }
+  return { playersBoard, gameLetter };
 };
