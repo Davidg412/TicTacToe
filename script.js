@@ -67,7 +67,7 @@ const gameOnMessage = () => {
   gameOn.textContent = "Game On!";
   const pageContainer = document.querySelector(".page-container");
   pageContainer.appendChild(gameOn);
-  return { gameOn };
+  return { pageContainer };
 };
 
 /////////*Flow of the TicTacToe Game after a letter is selected*//////////
@@ -126,7 +126,26 @@ const comboCheck = (playersBoard, gameLetter) => {
   ) {
     //Disables all of game board squares
     gameBoard.gameContainer.style.pointerEvents = "none";
-    gameOnMessage.gameOn.style.display = "none";
+    //Remove Game On message
+    document.querySelector(".game-on").style.display = "none";
+
+    //Notify who the winner of the game is
+    const pageContainer = document.querySelector(".page-container");
+    const gameWinner = document.createElement("h2");
+    gameWinner.textContent = `Player ${gameLetter} Wins!`;
+    pageContainer.appendChild(gameWinner);
+    //Rematch button option
+    const reMatch = document.createElement("button");
+    reMatch.classList.add("rematch-button");
+    reMatch.textContent = "Rematch";
+    pageContainer.appendChild(reMatch);
+
+    //Refresh page if button is clicked
+    const restartButton = document.querySelector(".rematch-button");
+
+    const refreshPage = () => {
+      location.reload();
+    };
+    restartButton.addEventListener("click", refreshPage);
   }
-  return { playersBoard, gameLetter };
 };
