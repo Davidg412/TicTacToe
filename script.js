@@ -49,9 +49,9 @@ const playerSelection = (() => {
     square.addEventListener("click", () => {
       gameOnMessage();
       if (square == xButton) {
-        gameFlow("X");
+        gameFlow("X", "O");
       } else if (square == oButton) {
-        gameFlow("O");
+        gameFlow("O", "X");
       }
     });
   });
@@ -71,26 +71,35 @@ const gameOnMessage = () => {
 };
 
 /////////*Flow of the TicTacToe Game after a letter is selected*//////////
-const gameFlow = (playerLetter) => {
-  if (playerLetter == "X") {
-    let cpuLetter = "O";
-  } else if (playerLetter == "O") {
-    let cpuLetter = "X";
-  }
+const gameFlow = (playerLetter, cpuLetter) => {
   let flowBoard = gameBoard.myBoard;
 
   //Adds click event listeners to each game square
   let allSquares = document.querySelectorAll(".game-square");
   allSquares.forEach(addLetter);
+
+  //Counter will determine which players turn it is
+  let counter = 0;
   //Splices letter into game array and appends a letter visually on the board
   function addLetter(square, index) {
     square.addEventListener("click", () => {
-      square.textContent = playerLetter;
-      flowBoard.splice(index, 1, playerLetter);
-      //Disables the square after it has been clicked
-      square.style.pointerEvents = "none";
-      let humanCombos = comboCheck(flowBoard, playerLetter);
-      console.log(flowBoard);
+      if (counter % 2 == 0) {
+        square.textContent = playerLetter;
+        flowBoard.splice(index, 1, playerLetter);
+        //Disables the square after it has been clicked
+        square.style.pointerEvents = "none";
+        let playerCombos = comboCheck(flowBoard, playerLetter);
+        console.log(flowBoard);
+        counter++;
+      } else {
+        square.textContent = cpuLetter;
+        flowBoard.splice(index, 1, cpuLetter);
+        //Disables the square after it has been clicked
+        square.style.pointerEvents = "none";
+        let cpuCombos = comboCheck(flowBoard, cpuLetter);
+        console.log(flowBoard);
+        counter++;
+      }
     });
   }
 };
