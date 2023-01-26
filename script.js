@@ -74,6 +74,9 @@ const gameOnMessage = () => {
 const gameFlow = (playerLetter, cpuLetter) => {
   let flowBoard = gameBoard.myBoard;
 
+  //Game on message
+  const gameDisplay = selectElement(".game-on");
+
   //Adds click event listeners to each game square
   let allSquares = document.querySelectorAll(".game-square");
   allSquares.forEach(addLetter);
@@ -84,6 +87,13 @@ const gameFlow = (playerLetter, cpuLetter) => {
   function addLetter(square, index) {
     square.addEventListener("click", () => {
       if (counter % 2 == 0) {
+        //Players turn message
+        const letterTurn = elementFactory(
+          "p",
+          { class: "players-turn" },
+          `It is player ${playerLetter}'s turn`
+        );
+        gameDisplay.selector.appendChild(letterTurn.element);
         square.textContent = playerLetter;
         flowBoard.splice(index, 1, playerLetter);
         //Disables the square after it has been clicked
@@ -92,6 +102,13 @@ const gameFlow = (playerLetter, cpuLetter) => {
         console.log(flowBoard);
         counter++;
       } else {
+        //Players turn message
+        const letterTurn = elementFactory(
+          "p",
+          { class: "players-turn" },
+          `It is player ${cpuLetter}'s turn`
+        );
+        gameDisplay.selector.appendChild(letterTurn.element);
         square.textContent = cpuLetter;
         flowBoard.splice(index, 1, cpuLetter);
         //Disables the square after it has been clicked
@@ -106,6 +123,22 @@ const gameFlow = (playerLetter, cpuLetter) => {
 
 //////////////*Find combos of players letters in the game board*//////////////
 const comboCheck = (playersBoard, gameLetter) => {
+  const pageContainer = selectElement(".page-container");
+  //Create game end message
+  const endMessage = elementFactory("h2", { class: "end-message" });
+
+  //Append below game board
+  const appendBoard = (child) => {
+    pageContainer.selector.appendChild(child);
+  };
+
+  //Rematch button for game end
+  const reMatch = elementFactory(
+    "button",
+    { class: "rematch-button" },
+    "Rematch"
+  );
+
   // Winning combos for the game
   if (
     (playersBoard[0] != "" &&
@@ -133,28 +166,72 @@ const comboCheck = (playersBoard, gameLetter) => {
       playersBoard[2] == playersBoard[4] &&
       playersBoard[4] == playersBoard[6])
   ) {
-    //Disables all of game board squares
-    gameBoard.gameContainer.style.pointerEvents = "none";
-    //Remove Game On message
-    document.querySelector(".game-on").style.display = "none";
-
+    gameStop();
+    removeGame();
     //Notify who the winner of the game is
-    const pageContainer = document.querySelector(".page-container");
-    const gameWinner = document.createElement("h2");
-    gameWinner.textContent = `Player ${gameLetter} Wins!`;
-    pageContainer.appendChild(gameWinner);
+    endMessage.element.textContent = `Player ${gameLetter} Wins!`;
+    appendBoard(endMessage.element);
     //Rematch button option
-    const reMatch = document.createElement("button");
-    reMatch.classList.add("rematch-button");
-    reMatch.textContent = "Rematch";
-    pageContainer.appendChild(reMatch);
-
+    appendBoard(reMatch.element);
+    restartGame();
     //Refresh page if button is clicked
-    const restartButton = document.querySelector(".rematch-button");
+    /*const restartButton = document.querySelector(".rematch-button");
 
     const refreshPage = () => {
       location.reload();
     };
-    restartButton.addEventListener("click", refreshPage);
+    restartButton.addEventListener("click", refreshPage);*/
+    //Condition checking for tie
+  } else if (playersBoard.every(checkTie) == true) {
+    gameStop();
+    removeGame();
+    endMessage.element.textContent = "It's a tie!";
+    appendBoard(endMessage.element);
+    appendBoard(reMatch.element);
+    restartGame();
   }
+};
+
+//game board stop
+const gameStop = () => (gameBoard.gameContainer.style.pointerEvents = "none");
+
+//Remove Game On message
+const removeGame = () =>
+  (document.querySelector(".game-on").style.display = "none");
+
+//Check for Tie in game
+const checkTie = (boardSquare) => {
+  return boardSquare != "";
+};
+
+//DOM element creation factory
+const elementFactory = (type, attribute, text) => {
+  const element = document.createElement(type);
+
+  for (key in attribute) {
+    element.setAttribute(key, attribute[key]);
+  }
+
+  element.textContent = text;
+
+  return { element };
+};
+
+//Select DOM elements
+const selectElement = (attribute) => {
+  const selector = document.querySelector(attribute);
+
+  const selectorAll = document.querySelectorAll(attribute);
+
+  return { selector, selectorAll };
+};
+
+//Refresh page after game end
+const restartGame = () => {
+  const restartButton = document.querySelector(".rematch-button");
+
+  const refreshPage = () => {
+    location.reload();
+  };
+  restartButton.addEventListener("click", refreshPage);
 };
