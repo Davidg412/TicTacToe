@@ -77,6 +77,22 @@ const gameFlow = (playerLetter, cpuLetter) => {
   //Game on message
   const gameDisplay = selectElement(".game-on");
 
+  //Players turn message
+  const playersTurn = elementFactory(
+    "p",
+    { class: "players-turn" },
+    `It is player ${playerLetter}'s turn`
+  );
+
+  //CPU turn message
+  const cpusTurn = elementFactory(
+    "p",
+    { class: "players-turn" },
+    `It is player ${cpuLetter}'s turn`
+  );
+
+  gameDisplay.selector.appendChild(playersTurn.element);
+
   //Adds click event listeners to each game square
   let allSquares = document.querySelectorAll(".game-square");
   allSquares.forEach(addLetter);
@@ -87,13 +103,9 @@ const gameFlow = (playerLetter, cpuLetter) => {
   function addLetter(square, index) {
     square.addEventListener("click", () => {
       if (counter % 2 == 0) {
-        //Players turn message
-        const letterTurn = elementFactory(
-          "p",
-          { class: "players-turn" },
-          `It is player ${playerLetter}'s turn`
-        );
-        gameDisplay.selector.appendChild(letterTurn.element);
+        //change turns
+        playersTurn.element.remove();
+        gameDisplay.selector.appendChild(cpusTurn.element);
         square.textContent = playerLetter;
         flowBoard.splice(index, 1, playerLetter);
         //Disables the square after it has been clicked
@@ -102,13 +114,8 @@ const gameFlow = (playerLetter, cpuLetter) => {
         console.log(flowBoard);
         counter++;
       } else {
-        //Players turn message
-        const letterTurn = elementFactory(
-          "p",
-          { class: "players-turn" },
-          `It is player ${cpuLetter}'s turn`
-        );
-        gameDisplay.selector.appendChild(letterTurn.element);
+        cpusTurn.element.remove();
+        gameDisplay.selector.appendChild(playersTurn.element);
         square.textContent = cpuLetter;
         flowBoard.splice(index, 1, cpuLetter);
         //Disables the square after it has been clicked
