@@ -5,6 +5,8 @@ const gameBoard = (() => {
   let emptySquare = "";
   let index = 0;
   const gameContainer = document.querySelector("#game-container");
+  //Game squares are disabled until player chooses a letter
+  gameContainer.style.pointerEvents = "none";
   //Loop to create 3x3 gameBoard
   for (let square = 0; square < 9; square++) {
     const gameSquare = document.createElement("div");
@@ -59,6 +61,7 @@ const playerSelection = (() => {
 
 //Hide player selection and display game on message
 const gameOnMessage = () => {
+  gameBoard.gameContainer.style.pointerEvents = "auto";
   //Removes selection buttons
   document.querySelector(".player-choices").style.display = "none";
   //Replace with game message
