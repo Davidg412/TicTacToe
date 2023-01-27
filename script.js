@@ -111,7 +111,6 @@ const gameFlow = (playerLetter, cpuLetter) => {
         //Disables the square after it has been clicked
         square.style.pointerEvents = "none";
         let playerCombos = comboCheck(flowBoard, playerLetter);
-        console.log(flowBoard);
         counter++;
       } else {
         cpusTurn.element.remove();
@@ -121,7 +120,6 @@ const gameFlow = (playerLetter, cpuLetter) => {
         //Disables the square after it has been clicked
         square.style.pointerEvents = "none";
         let cpuCombos = comboCheck(flowBoard, cpuLetter);
-        console.log(flowBoard);
         counter++;
       }
     });
