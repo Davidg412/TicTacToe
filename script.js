@@ -27,7 +27,7 @@ const playerSelection = (() => {
   const playerChoices = document.querySelector(".player-choices");
   const selectionMessage = document.createElement("h2");
   selectionMessage.classList.add("selection-message");
-  selectionMessage.textContent = "Choose your letter:";
+  selectionMessage.textContent = "Choose your letter";
   playerChoices.appendChild(selectionMessage);
 
   //Button Creation
@@ -144,7 +144,7 @@ const comboCheck = (playersBoard, gameLetter) => {
   const reMatch = elementFactory(
     "button",
     { class: "rematch-button" },
-    "Rematch"
+    "Rematch?"
   );
 
   // Winning combos for the game
