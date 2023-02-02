@@ -27,7 +27,7 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .game-header {
@@ -47,7 +47,7 @@
   grid-template-rows: repeat(3, minmax(50px, 1fr));
   border-style: solid;
   width: 35rem;
-  height: 35rem;
+  min-height: 35rem;
 }
 
 .game-square {
@@ -63,7 +63,7 @@
 .game-square::after {
   content: "";
   position: absolute;
-  height: 100%;
+  min-height: 100%;
   width: 100%;
   top: 0;
   left: 0;
